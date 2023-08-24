@@ -91,7 +91,6 @@ module.exports = (env = {}) => ({
   devtool: 'source-map',
   devServer: {
     contentBase: path.join(__dirname, 'src/public'),
-    publicPath: process.env.BASE_URL,
     index: './index.html',
     hot: true,
     stats: 'minimal',
