@@ -21,39 +21,43 @@ module.exports = (env = {}) => ({
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+        ],
+      },
+      {
         test: /\.vue$/,
-        use: 'vue-loader'
+        loader: "vue-loader",
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: "babel-loader"
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
+        test: /\.(ts|tsx)$/,
+        exclude: /node_modules\/(?!@brightly\/brightlycomponents)/,
         use: [
           {
             loader: "babel-loader",
-            options: { babelrc: true }
+            options: {
+              cacheDirectory: true,
+              presets: ["@babel/preset-typescript", "@babel/env"],
+            },
           },
-          {
-            loader: "ts-loader",
-            options: { appendTsSuffixTo: [/\.vue$/] }
-          }
-        ]
+        ],
       },
       {
-        test: /\.css$/,
+        test: /\.js$|jsx/,
+        exclude: /node_modules\/(?!@brightly\/brightlycomponents)/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: { hmr: !env.production }
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+              presets: ["@babel/env"],
+            },
           },
-          'css-loader'
-        ]
+        ],
       },
-    ],
+    ]
   },
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],

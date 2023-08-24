@@ -1,10 +1,7 @@
 import { createApp } from 'vue';
-import { router } from './router';
-import { store } from './store';
-
 import App from "./App.vue";
+import { ComponentLibrary } from '@brightly/brightlycomponents/brightlycomponents-vue/src';
 
 createApp(App)
-    .use(router)
-    .use(store)
+    .use(ComponentLibrary)
     .mount('#app');
